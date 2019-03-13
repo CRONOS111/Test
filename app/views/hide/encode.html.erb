@@ -1,0 +1,6 @@
+<h2>Hey, there </h2>
+<% if @hide.stego_result.attached? %>
+<%= link_to 'Download',rails_blob_path(@hide.stego_result)%>
+<% else %>
+<h4> Oops, Something went wrong!! </h4>
+<% end %>

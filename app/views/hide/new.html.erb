@@ -1,0 +1,23 @@
+<h1> Hey there</h1><br/>
+<% if @hide.cover_image.attached? %>
+<%= image_tag @hide.cover_image.variant(resize: '200x200') %>
+<% else %>
+<h4> no cover image </h4>
+<% end %>
+<% if @hide.message.attached? %>
+<h4>Message attached</h4> <br/>
+<% else %>
+<h4> no message sorry </h4>
+<% end %>
+<%= form_tag({action: :new}, multipart: true) do %>
+<% unless @hide.cover_image.attached? %>
+<%= file_field_tag 'cover_image' %><br/>
+<% else %>
+<%=file_field_tag 'message' %>
+<% end %>
+<%= submit_tag %>
+<% end %>
+<% if @hide.cover_image.attached? && @hide.message.attached? %>
+<%= link_to 'Encode', hide_i_encode_path %>
+<% end %>
+<%= link_to 'Destroy', hide_i_destroy_path %>
