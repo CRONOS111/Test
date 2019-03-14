@@ -1,5 +1,5 @@
 require 'pry'
-require_relative '../../../project/lsbStego.rb'
+require_relative './lsbStego.rb'
 class HideController < ApplicationController
   #include ActiveStorage::Downloading
   def start

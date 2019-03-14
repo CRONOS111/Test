@@ -1,4 +1,4 @@
-require_relative "../../../project/lsbStego.rb"
+require_relative "./lsbStego.rb"
 class SeekController < ApplicationController
   def start
     Seek.delete_all
