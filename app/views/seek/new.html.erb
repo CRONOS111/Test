@@ -1,0 +1,11 @@
+<h1>Hey, there</h1>
+<% if @seek.stego.attached? %>
+<% ActiveStorage.variable_content_types[5] = 'image/bmp' %>
+<%= image_tag @seek.stego.variant(resize: '100x100') %>
+<%= link_to 'Decode', seek_i_decode_path %>
+<% else %>
+<%= form_tag({action: :new}, multipart: true) do %>
+<%= file_field_tag 'stego' %>
+<%= submit_tag %>
+<% end %>
+<% end %>

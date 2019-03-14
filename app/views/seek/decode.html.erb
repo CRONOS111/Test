@@ -1,0 +1,6 @@
+<h1> Hey, there </h1>
+<% if @seek.message.attached? %>
+<%= link_to 'Download', rails_blob_path(@seek.message)%>
+<% else %>
+<h4> Oops, Something went wrong!! </h4>
+<% end %>
