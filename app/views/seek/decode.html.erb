@@ -1,6 +1,23 @@
-<h1> Hey, there </h1>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+</head>
+<body class="flex flex-col items-center font-sans md:h-screen md:bg-grey-lightest">
+<main class="main">
+<section class="h-full w-full p-6 overflow-hidden md:flex md:flex-row md:rounded-lg md:shadow-big">
+<send-upload-area class="flex flex-col items-center justify-center border-2 border-dashed border-grey rounded px-6 py-16 h-full w-full">>
 <% if @seek.message.attached? %>
-<%= link_to 'Download', rails_blob_path(@seek.message)%>
+<h2 class="font-sans font-bold justify-center"> Hey there, 
+<br/>Your decoded message is ready for download</h2>
+<label class="btn rounded-lg overflow-hidden p-4 items-center m-8">
+<%= link_to 'Download', rails_blob_path(@seek.message)%></label>
 <% else %>
-<h4> Oops, Something went wrong!! </h4>
+<h2 class="font-sans font-bold justify-center"> Oops, Something went wrong!! 
+</h2>
 <% end %>
+</send-upload-area>
+</section>
+</main>
+</body>
+</html>

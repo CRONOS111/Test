@@ -1,11 +1,36 @@
-<h1>Hey, there</h1>
+<!DOCTYPE html>
+<html lang="en-US">
+<head>
+
+</head>
+<body class="flex flex-col items-center font-sans md:h-screen md:bg-grey-lightest">
+<main class="main">
+<section class="h-full w-full p-6 overflow-hidden md:flex md:flex-row md:rounded-lg md:shadow-big">
+<div class="px-2 w-full md:px-0 md:mr-6 md:w-1/2">
+<send-upload-area class="flex flex-col items-center justify-center border-2 border-dashed border-grey rounded px-6 py-16 h-full w-full">
 <% if @seek.stego.attached? %>
 <% ActiveStorage.variable_content_types[5] = 'image/bmp' %>
-<%= image_tag @seek.stego.variant(resize: '100x100') %>
+<div class="md:shadow-big">
+<%= image_tag @seek.stego.variant(resize: '500x500'),data: {class: "w-full md:shadow-big" } %></div>
+<label class="btn rounded-lg overflow-hidden p-4 items-center m-6">
 <%= link_to 'Decode', seek_i_decode_path %>
+</label></div>
 <% else %>
 <%= form_tag({action: :new}, multipart: true) do %>
-<%= file_field_tag 'stego' %>
-<%= submit_tag %>
+<label class="btn rounded-lg overflow-hidden items-center mt-4">
+<%= file_field_tag 'stego' %></label></send-upload-area></div>
+<div class="px-2 w-4 md:px-0 md:w-1/2">
+<label class="btn rounded-lg overflow-hidden p-4 items-center m-6">
+<%= submit_tag %></label></div>
 <% end %>
 <% end %>
+
+<send-intro class="flex flex-col items-center justify-center bg-white px-6 md:py-0 py-6 mb-0 h-full w-full">
+<div class="mt-12 flex flex-col h-full">
+<h1 class="font-bold">Hide & Seek</h1>
+<p class="max-w-sm leading-normal mt-6 md:mt-2 md:pr-16">Hide & Seek lets you hide & retrieve any data in an image, potentially hiding its existence. It uses a simple method known as LSB(Least Significant Bit) Substitution method.</p><!--<img src="" class="intro">--></div></send-intro>
+</div>
+
+</section>
+</main>
+</body>
