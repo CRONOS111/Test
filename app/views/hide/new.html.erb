@@ -23,12 +23,24 @@
 <%= form_tag({action: :new}, multipart: true) do %>
 <% unless @hide.cover_image.attached? %>
 <label class="btn rounded-lg overflow-hidden items-center mt-2">
+
 <%= file_field_tag 'cover_image'%><br/></label>
 <% else %>
 <label class="btn rounded-lg overflow-hidden items-center mt-4">
+
 <%=file_field_tag 'message' %></label>
 <% end %></send-upload-area></div>
 <div class="px-2 w-4 md:px-0 md:w-1/2">
+
+<% if @hide.cover_image.attached? && !@hide.message.attached? %>
+<div class="popup my-12 md:shadow-big" onclick="myFunction()">
+  <%= label_tag(:pass,"Password : ") %>
+  <%= password_field_tag(:pass) %>
+  <span class="popuptext" id="myPopup">Enter password to encrypt</span>
+</div>
+<br>
+<% end %>
+
 <label class="btn rounded-lg overflow-hidden items-center mt-4">
 <%= submit_tag %>
 </label>

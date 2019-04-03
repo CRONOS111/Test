@@ -20,10 +20,22 @@
 <label class="btn rounded-lg overflow-hidden items-center mt-4">
 <%= file_field_tag 'stego' %></label></send-upload-area></div>
 <div class="px-2 w-4 md:px-0 md:w-1/2">
+
+
+<div class="popup my-12 md:shadow-big" onclick="myFunction()">
+  <%= label_tag(:pass,"Password : ") %>
+  <%= password_field_tag(:pass) %>
+  <span class="popuptext" id="myPopup">This file may require password</span>
+</div>
+<br>
+
+
 <label class="btn rounded-lg overflow-hidden p-4 items-center m-6">
-<%= submit_tag %></label></div>
+<%= submit_tag %></label>
+</div>
 <% end %>
 <% end %>
+
 
 <send-intro class="flex flex-col items-center justify-center bg-white px-6 md:py-0 py-6 mb-0 h-full w-full">
 <div class="mt-12 flex flex-col h-full">

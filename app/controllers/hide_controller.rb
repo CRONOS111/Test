@@ -1,5 +1,7 @@
 require 'pry'
 require_relative './lsbStego.rb'
+require_relative './crypto.rb'
+
 class HideController < ApplicationController
   #include ActiveStorage::Downloading
   def start
@@ -23,7 +25,13 @@ class HideController < ApplicationController
     end
     if params[:message]
       if params[:message].tempfile.size < (@hide.message_cap - 10)
-        @hide.message.attach(io: params[:message].tempfile, filename: params[:message].original_filename)
+        if !params[:pass].empty?
+          salt = params[:message].tempfile.size.to_s
+          Crypt.enc params[:message].tempfile, params[:pass], '81889817'
+          @hide.message.attach(io: params[:message].tempfile, filename: params[:message].original_filename)
+        else
+          @hide.message.attach(io: params[:message].tempfile, filename: params[:message].original_filename)
+        end
       end
     end
     @hide.save

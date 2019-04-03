@@ -25,14 +25,14 @@ end
 class Stego #Base class
   #require 'rmagick'
   require 'mini_magick'
-  STEGO_HEADER_SIZE = 6 #A2 encryption if used(ya,no), V size of message, A4 ext
+  STEGO_HEADER_SIZE = 4 #A2 encryption if used(ya,no), V size of message, A4 ext
   def initialize file #initializes with cover image
     @cover_image = MiniMagick::Image.read(file)
     @cover_capacity = ((@cover_image.get_pixels.flatten.size)*2)/8
   end
   
   def encode message_file, stego_file_name #initializes the secret message
-    if message_file.size > @cover_capacity - STEGO_HEADER_SIZE
+    if message_file.size > @cover_capacity - STEGO_HEADER_SIZE - 32 #for cipher
       raise ArgumentError, 'Message too big for given cover'
     end
     @message = message_file.unpack('B*').first
@@ -62,7 +62,7 @@ class Stego #Base class
     pixels=@cover_image.get_pixels.flatten
     header_pix_size = STEGO_HEADER_SIZE * 4
     header_bit_str = StringIO.new(pixels.shift(header_pix_size).map(&:stego_decode).join)
-    encryption = [header_bit_str.read(16)].pack('B*')
+    #encryption = [header_bit_str.read(16)].pack('B*')
     message_size = [header_bit_str.read(32)].pack('B*').unpack('V').first
     #ext = [header_bit_str.read(32)].pack('B*')
     #binding.pry
@@ -80,15 +80,15 @@ class Stego #Base class
     pixels = @cover_image.get_pixels.flatten
     header_pix_size = STEGO_HEADER_SIZE * 4
     header_bit_str = StringIO.new(pixels.shift(header_pix_size).map(&:stego_decode).join)
-    enc = [header_bit_str.read(16)].pack('B*')
+    #enc = [header_bit_str.read(16)].pack('B*')
     messize = [header_bit_str.read(32)].pack('B*').unpack('V').first
     #ext = [header_bit_str.read(32)].pack('B*')
-    return [enc, messize]
+    return messize
   end
   
   private
   def stego_header
-    ['NO', @message_size].pack('A2V').unpack('B*').first
+    [ @message_size].pack('V').unpack('B*').first
   end
   def bin_sub2 pix_byte, bit2
     return pix_byte  if bit2.nil?
